@@ -1,0 +1,62 @@
+Created!
+
+You have successfully created a new database. The details are below.
+
+Username: crm4E2mYpH
+
+Database name: crm4E2mYpH
+
+Password: dNws8oNgZo
+
+Server: remotemysql.com
+
+Port: 3306
+
+These are the username and password to log in to your database and phpMyAdmin
+
+/*/*/*/*/*/*/***/*/*/*/*/*/*/*/*/*/*/*/*/
+query
+
+create table productos
+(
+   _id int not null,
+   descripcion char(30) not null,
+   id_prov int, 
+   categoria int not null,
+   precio_comp double not null, 
+   precio_ven double not null	
+   
+);
+
+
+create table ventas
+(
+	_idventa int not null,
+	des_venta varchar(500),
+	id_product int not null,
+	id_cliente int not null,
+	valor_venta double not null,
+	fecha_venta date
+);
+
+create table usuarios 
+(
+	_cel int not null,
+	nombre varchar(16),
+	apellido varchar(16),
+	f_nacimiento date,
+	role int not null
+);
+
+create table categorias
+(
+	id_cat int not null,
+	descrip varchar(20)
+);
+
+create table roles
+(
+	id_rol int not null,
+	descrip_rol varchar(30)
+);
+
