@@ -4,6 +4,8 @@ const bodyparser = require('body-parser');
 
 const app = express();
 
+require('./database/db');
+
 const router = require('./routers/indexRoute');
 
 app.use(bodyparser.urlencoded({extended: false}));

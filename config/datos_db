@@ -21,7 +21,8 @@ create table productos
 (
    _id int not null,
    descripcion char(30) not null,
-   id_prov int, 
+   id_prov int,
+   cantidad int not null, 
    categoria int not null,
    precio_comp double not null, 
    precio_ven double not null	
@@ -31,7 +32,7 @@ create table productos
 
 create table ventas
 (
-	_idventa int not null,
+	consecutivo int not null,
 	des_venta varchar(500),
 	id_product int not null,
 	id_cliente int not null,
@@ -59,4 +60,10 @@ create table roles
 	id_rol int not null,
 	descrip_rol varchar(30)
 );
+
+create table proveedores 
+(
+	id_provee int not null,
+	descripcion varchar(30)
+)
 
