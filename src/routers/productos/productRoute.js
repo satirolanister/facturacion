@@ -7,6 +7,8 @@ const {getProduct, getProductId} = require('../../controller/productos/productCo
 
 router.get('/product', getProduct);
 
+router.get('/product/id:', getProductId);
+
 
 
 

@@ -7,6 +7,8 @@ product.getProduct= (req, res) => {
 }
 
 product.getProductId = (req, res) =>{
+    let id = req.params.id
+    console.log(id);
     res.send('Producto por id');
 }
 
