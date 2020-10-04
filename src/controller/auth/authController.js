@@ -1,13 +1,28 @@
 const auth = {};
+const {login} = require('../../database/db');
 
 
-
-auth.login = (req, res)=>{
-    res.send('login');
+auth.login = async (req, res)=>{
+   try {
+        const username = await login.findOne({
+            where: {
+                name : req.body.name,
+                password : req.body.password
+            }
+        });
+        if(username){
+            res.json({success:true});
+        }else {
+            res.json({message: 'Error en las credenciales'});
+        }
+   } catch (err) {
+       res.json(err);
+   }
+   
 };
 
 auth.register = (req, res) => {
-    res.send('Registro');
+    res.send('registro');
 }
 
 

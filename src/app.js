@@ -1,5 +1,6 @@
 const express = require('express');
 const morgan = require('morgan');
+const path = require('path');
 const bodyparser = require('body-parser');
 const cors = require('cors');
 
@@ -13,17 +14,16 @@ const app = express();
 
 
 //middlewares
-app.use(cors());
-app.use(bodyparser.urlencoded({extended: false}));
+app.use(bodyparser.urlencoded({extended: true}));
 app.use(bodyparser.json());
 app.use(morgan('dev'));
-
+app.use(cors());
 
 //routes
 app.use('/api',router);
-app.get('/',(req, res)=>{
-    res.send('Hola');
-});
+
+//static file
+app.use(express.static(path.join(__dirname, 'public')));
 
 
 module.exports = app;
