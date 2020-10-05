@@ -13,6 +13,7 @@ product.getProduct= async (req, res) => {
 
 product.insertProduct = async(req, res) => {
     try {
+        
         const Product = await produ.create(req.body);
         res.json(Product);
     } catch (err) {

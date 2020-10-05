@@ -10,7 +10,7 @@ const saleModel = require('../models/ventas/salemodel');
 const loginModel = require('../models/user/authmodel');
 
 
-const sequelize = new Sequelize(dbuser,db,dbpass,{
+const sequelize = new Sequelize(db,dbuser,dbpass,{
     host: url,
     dialect: 'mysql',
     pool:{
