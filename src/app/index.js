@@ -4,8 +4,8 @@ import axios from 'axios';
 import vueaxios from 'vue-axios';
 import route from './router.js'
 
-Vue.use(axios);
-Vue.use(vueaxios);
+
+Vue.use(axios,vueaxios);
 
 
 new Vue({
