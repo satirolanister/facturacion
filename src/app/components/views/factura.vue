@@ -58,19 +58,29 @@
                     <input type="number" placeholder="Cantidad">
                     <button class="btn btn-primary">+</button>
                     </div>
-                    <div class="form-group">
-                        <table class="table">
-                            <thead>
+                    <div class="form-group table-responsive">
+                        <table class="table table-bordered">
+                            <thead class="thead-dark">
                                 <tr>
                                     <th>Codigo</th>
                                     <th>Descripción</th>
                                     <th>Cantidad</th>
                                     <th>Precio</th>
+                                    <th>opciones</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td></td>
+                                    <td><input type="text" disabled></td>
+                                    <td><input type="text" disabled></td>
+                                    <td><input type="text"></td>
+                                    <td><input type="text" disabled></td>
+                                    <td>
+                                    <div>
+                                        <button class="btn btn-danger">-</button>
+                                        <button class="btn btn-success">+</button>
+                                    </div>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>

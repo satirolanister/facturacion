@@ -5,7 +5,7 @@ import vueaxios from 'vue-axios';
 import route from './router.js'
 
 
-Vue.use(axios,vueaxios);
+Vue.use(vueaxios, axios);
 
 
 new Vue({
