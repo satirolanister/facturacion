@@ -5,21 +5,39 @@
         <div class="col-md-12">
           <div class="card">
             <div class="card-body">
-              <form>
+              <form @submit.prevent="">
                 <div class="row">
                 <div class="col-md-6">   
                 <div class="form-group">
                   <div>
                       <label for="">CC / NIT: </label>
-                      <input class="col-md-6" type="text" placeholder="CC / NIT ">
-                      <button class="btn btn-secondary" >Buscar</button>
-                      <button class="btn btn-success col-md-1">+</button>
+                      <input class="col-md-7" type="number" placeholder="CC / NIT " v-model="cc" >
+                      <button class="btn btn-secondary" @click="getclientId" >Buscar</button>
+                      <template v-if="existe === false">
+                        <form @submit.prevent="createClient">
+                          <div class="row">
+                            <div class="col-md-6">
+                              <div class="card">
+                                <div class="card-body">
+                                  <div class="form-group">
+                                  <input type="number" v-model="client._cel" placeholder="Cedula">
+                                  <input type="text" v-model="client.nombre" placeholder="Nombre">
+                                  <input type="text" v-model="client.apellido" placeholder="Apellido">
+                                  <input type="date" v-model="client.f_nacimiento" placeholder="Fecha de nacimiento">
+                                  <button class="btn btn-success btn-block">Agregar</button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </form>
+                      </template>
                   </div>  
                 </div>
                 <div class="form-group">
                   <div>
                   <label for="">Nombre Cliente:</label>      
-                  <input class="col-md-8" type="text" placeholder="Nombre cliente"/>
+                  <input class="col-md-8" type="text" placeholder="Nombre cliente" v-model="nombre"/>
                   </div>
                 </div>
                 <div class="form-group">
@@ -96,7 +114,58 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   name: "factura",
+  data() {
+    return{
+      lista:{},
+      client:{},
+      producto:{},
+      cc: '',
+      existe: '',
+      nombre:''
+    }
+  },
+  mounted(){
+    
+  },
+  methods:{
+    registersale(){
+      console.log('Funciona');
+    },
+    getclientId(){
+
+      const id=parseInt(this.cc);
+      
+      axios
+        .get('http://localhost:3000/api/user/'+id)
+        .then((data) =>{
+          this.existe = data.data.success;
+          if(this.existe === false){
+            alert('Se debe registrar cliente');
+            this.client._cel=this.cc;
+            this.cc='';
+          }else{
+            this.nombre = data.data.nombre +' '+ data.data.apellido;
+            this.cc = data.data._cel;
+          }
+        })
+        .catch((err) => {
+          console.log(err)
+        });
+    },
+    createClient(){
+      this.client._cel=parseInt(this.client._cel);
+      axios
+        .post('http://localhost:3000/api/user/',this.client)
+        .then(data=>{
+          console.log(data.data);
+          this.existe = ""
+          this.client={}
+        })
+        .catch(err=>console.log(err));     
+    }
+  }
 };
 </script>
