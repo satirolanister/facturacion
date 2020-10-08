@@ -8,9 +8,8 @@ module.exports = (sequelize, type) => {
             
         },
         descripcion: type.STRING,
-        cantidad: type.INTEGER,
-        precio_comp: type.DOUBLE,
-        precio_ven: type.DOUBLE,
+        existencia: type.INTEGER,
+        precio_u: type.DOUBLE,
         id_prov:{
             type: type.INTEGER,
             references:{
@@ -28,3 +27,4 @@ module.exports = (sequelize, type) => {
             
     });
 };
+ 

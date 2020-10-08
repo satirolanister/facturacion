@@ -11,13 +11,10 @@
                     v-model="items.descripcion"></textarea>
                 </div>
                 <div class="form-group">
-                  <input class="form-control" type="number" placeholder="cantidad" v-model="items.cantidad" />
+                  <input class="form-control" type="number" placeholder="cantidad" v-model="items.existencia" />
                 </div>
                 <div class="form-group">
-                  <input class="form-control" type="number" placeholder="precio compra" v-model="items.precio_comp" />
-                </div>
-                <div class="form-group">
-                  <input class="form-control" type="number" placeholder="precio venta" v-model="items.precio_ven" />
+                  <input class="form-control" type="number" placeholder="precio unitario" v-model="items.precio_u" />
                 </div>
                 <div class="form-group">
                   <select class="form-control" name="proveedores" v-model="items.id_prov">
@@ -53,9 +50,8 @@
               <thead>
                 <tr>
                   <th>descripcion</th>
-                  <th>cantidad</th>
-                  <th>p-provedor</th>
-                  <th>p-cliente</th>
+                  <th>Existencias</th>
+                  <th>Precio Unitario</th>
                   <th>proveedor</th>
                   <th>categoria</th>
                 </tr>
@@ -63,9 +59,8 @@
               <tbody>
                 <tr v-for="product of products" :key="product._id">
                   <td>{{ product.descripcion }}</td>
-                  <td>{{ product.cantidad }}</td>
-                  <td>$ {{ product.precio_comp }}</td>
-                  <td>$ {{ product.precio_ven }}</td>
+                  <td>{{ product.existencia }}</td>
+                  <td>$ {{ product.precio_u}}</td>
                   <td>{{ product.id_prov }}</td>
                   <td>{{ product.categoria }}</td>
                   <td>
@@ -121,9 +116,8 @@
       },
 
       sendproduct() {
-        this.items.cantidad = parseInt(this.items.cantidad, 10);
-        this.items.precio_comp = parseInt(this.items.precio_comp, 10);
-        this.items.precio_ven = parseInt(this.items.precio_ven, 10);
+        this.items.existencia = parseInt(this.items.existencia, 10);
+        this.items.precio_u = parseInt(this.items.precio_u, 10);
 
         if(this.edit === false){
           axios
@@ -182,9 +176,8 @@
             let d = data.data;
               this.items={
                 descripcion : d.descripcion,
-                cantidad : d.cantidad,
-                precio_comp : d.precio_comp,
-                precio_ven : d.precio_ven,
+                existencia : d.existencia,
+                precio_u : d.precio_u,
                 id_prov : d.id_prov,
                 categoria : d.categoria
               };

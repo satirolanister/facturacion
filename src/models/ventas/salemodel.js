@@ -1,28 +1,17 @@
 module.exports = (sequelize, type) => {
-    return sequelize.define('ventas',{
-        consecutivo: {
-           type: type.INTEGER,
-           autoIncrement: true,
-           primaryKey: true
-        },  
-        des_venta: type.STRING, //detalle factura
-        valor_venta: type.DOUBLE,
-        fecha_venta: type.DATE, //eliminar, utilizar createdAt
-        id_product:{            //detalle factura
+    return sequelize.define('facturas',{
+        Numfactura:{
             type: type.INTEGER,
-            references:{
-                model:'productos',
-                key:'_id'
+            primaryKey: true
+        },
+        id_client:{
+            type: type.INTEGER,
+            references: {
+               model:'usuarios',
+               key: '_cel'    
             }
         },
-        id_cliente: {
-            type: type.INTEGER,
-            references:{
-                model:'usuarios',
-                key:'_cel'
-            }
-        }
-    });
+    }); 
 };
 
 /* 

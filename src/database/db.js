@@ -8,6 +8,7 @@ const rolesModel = require('../models/roles/rolesModel');
 const userModel = require('../models/user/usermodel');
 const saleModel = require('../models/ventas/salemodel');
 const loginModel = require('../models/user/authmodel');
+const detallefactura = require('../models/detalle-venta/detalle-venta')
 
 
 const sequelize = new Sequelize(db,dbuser,dbpass,{
@@ -29,6 +30,7 @@ const rol = rolesModel(sequelize, Sequelize);
 const user = userModel(sequelize, Sequelize);
 const sale = saleModel(sequelize, Sequelize); 
 const login = loginModel(sequelize, Sequelize);
+const detalle = detallefactura(sequelize, Sequelize);
 
 
 
@@ -46,5 +48,6 @@ module.exports = {
     rol,
     user,
     sale,
-    login 
+    login,
+    detalle 
 }

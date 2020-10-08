@@ -2,8 +2,8 @@ const ventas = {};
 
 
 
-ventas.getVentas=(req, res)=>{
-    res.send('Todas las ventas');
+ventas.getVentasId= async (req, res)=>{
+    console.log('id venta');
 };
 
 

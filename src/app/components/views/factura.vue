@@ -7,25 +7,73 @@
             <div class="card-body">
               <form @submit.prevent="">
                 <div class="row">
-                <div class="col-md-6">   
+                <div class="col-md-8">   
                 <div class="form-group">
                   <div>
                       <label for="">CC / NIT: </label>
-                      <input class="col-md-7" type="number" placeholder="CC / NIT " v-model="cc" >
+                      <input class="col-md-9" type="number" placeholder="CC / NIT " v-model="cc" >
                       <button class="btn btn-secondary" @click="getclientId" >Buscar</button>
-                      <template v-if="existe === false">
+                  </div>  
+                </div>
+                <div class="form-group">
+                  <div>
+                  <label for="">Nombre Cliente:</label>      
+                  <input class="col-md-9" type="text" placeholder="Nombre cliente" v-model="nombre"/>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="">Vendedor:</label>  
+                  <input class="col-md-9" type="text" placeholder="Vendedor"/>
+                </div>
+                <div class="form-group">
+                        <label for="">Metodo de pago:</label>
+                        <select class="col-md-9">
+                            <option value="1">Efectivo</option>
+                        </select>
+                </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="row">
+                    <div class="col-6">
+                      <button class="btn btn-secondary" @click="buscar = true">Buscar factura</button>
+                    </div>
+                    <div class="col-6">
+                      <button class="btn btn-success">Generar factura</button>  
+                    </div>
+                  </div>  
+                  </div>
+                  </div>
+                </div>
+                </div>
+                <template v-if="existe === false">
                         <form @submit.prevent="createClient">
                           <div class="row">
                             <div class="col-md-6">
                               <div class="card">
                                 <div class="card-body">
                                   <div class="form-group">
+                                  <div>  
                                   <input type="number" v-model="client._cel" placeholder="Cedula">
+                                  </div>
+                                  <div>
                                   <input type="text" v-model="client.nombre" placeholder="Nombre">
+                                  </div>
+                                  <div>
                                   <input type="text" v-model="client.apellido" placeholder="Apellido">
+                                  </div>
+                                  <div>
                                   <input type="date" v-model="client.f_nacimiento" placeholder="Fecha de nacimiento">
-                                  <button class="btn btn-success btn-block">Agregar</button>
-                                  <button class="btn btn-success btn-block" @click='existe=` `'>Cancelar</button>
+                                  </div>
+                                  <div>
+                                  <input type="text" v-model="client.direccion" placeholder="dirección">
+                                  </div>
+                                  <div>
+                                  <input type="number" v-model="client.telefono" placeholder="telefono">
+                                  </div>
+                                  <button class="btn btn-success">Agregar</button>
+                                  <button class="btn btn-danger" @click='existe=` `'>Cancelar</button>                                  
                                   </div>
                                 </div>
                               </div>
@@ -33,38 +81,28 @@
                           </div>
                         </form>
                       </template>
-                  </div>  
-                </div>
-                <div class="form-group">
-                  <div>
-                  <label for="">Nombre Cliente:</label>      
-                  <input class="col-md-8" type="text" placeholder="Nombre cliente" v-model="nombre"/>
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label for="">Vendedor:</label>  
-                  <input class="col-md-9" type="text" placeholder="Vendedor"/>
-                </div>
-                </div>
-                <div class="col-md-6">
-                    
-                    <div class="form-group"> 
-                    <label for="">N. Factura:</label>
-                    <input class="col-md-9" type="text" placeholder="consecutivo">
-                    </div>
-                    <div class="form-group">
-                        <label for="">Metodo de pago:</label>
-                        <select class="col-md-8">
-                            <option value="1">Efectivo</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="">Fecha:</label>
-                        <input class="col-md-6" type="date">
-                    </div>
-                    
-                </div>
-                </div>
+                <template v-if="buscar === true">
+                      <form @submit.prevent="seachFactura">
+                        <div class="row">
+                          <div class="col-md-6">
+                            <div class="card">
+                              <div class="card-body">
+                                <div class="form-group">
+                                  <div>
+                                    <input type="number" v-model="n_factura" placeholder="N factura">
+                                  </div>
+                                  <br>
+                                  <div>
+                                    <button class="btn btn-secondary">Buscar</button>
+                                    <button class="btn btn-danger" @click="buscar = false">Cancelar</button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </form>
+                </template>
                 <hr>
                 <div>
                     <div class="form-group">
@@ -125,7 +163,9 @@ export default {
       producto:{},
       cc: '',
       existe: '',
-      nombre:''
+      nombre: '',
+      n_factura:'',
+      buscar: ''
     }
   },
   mounted(){
@@ -138,7 +178,6 @@ export default {
     getclientId(){
 
       const id=parseInt(this.cc);
-      
       axios
         .get('http://localhost:3000/api/user/'+id)
         .then((data) =>{
@@ -158,6 +197,7 @@ export default {
     },
     createClient(){
       this.client._cel=parseInt(this.client._cel);
+      this.nombre= ' '; 
       axios
         .post('http://localhost:3000/api/user/',this.client)
         .then(data=>{
@@ -166,6 +206,11 @@ export default {
           this.client={}
         })
         .catch(err=>console.log(err));     
+    },
+    seachFactura(){
+      
+      this.n_factura = parseInt(this.n_factura)
+      console.log(this.n_factura);
     }
   }
 };

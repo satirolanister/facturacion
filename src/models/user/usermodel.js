@@ -7,6 +7,8 @@ module.exports = (sequelize, type) => {
         nombre: type.STRING,
         apellido: type.STRING,
         f_nacimiento: type.DATE,
+        direccion: type.STRING,
+        telefono: type.INTEGER,
         Role:{
            type: type.INTEGER,
            references: {
