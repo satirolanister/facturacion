@@ -25,6 +25,7 @@
                                   <input type="text" v-model="client.apellido" placeholder="Apellido">
                                   <input type="date" v-model="client.f_nacimiento" placeholder="Fecha de nacimiento">
                                   <button class="btn btn-success btn-block">Agregar</button>
+                                  <button class="btn btn-success btn-block" @click='existe=` `'>Cancelar</button>
                                   </div>
                                 </div>
                               </div>
