@@ -15,6 +15,62 @@ Port: 3306
 These are the username and password to log in to your database and phpMyAdmin
 
 /*/*/*/*/*/*/***/*/*/*/*/*/*/*/*/*/*/*/*/
+Multi insert sequelize
+async function insertMultiple () {
+    await Inserts.bulkCreate(json).then(async ()=>{
+        return await Inserts.findAll()
+    }).then((data)=>{
+        console.log('insertados')
+    })
+}
+
+Agregar campos nuevos 
+const array1 =
+[
+    {
+        data:'hola 1',
+        boolean: true
+
+    },
+    {
+        data:'hola 2',
+        boolean: true
+
+    },
+    {
+        data:'hola 3',
+        boolean: true
+
+    }
+];
+
+array1.forEach((value, index) => {
+    
+    let datosExtra={
+        valor:'',
+        Cantidad: ''
+    };
+
+    let dato=array1[index];
+
+    
+        datosExtra.valor = index*2
+        datosExtra.Cantidad = (8*index)+10
+   
+
+
+    addElement(datosExtra, dato);
+
+    function addElement(elementlist, element){
+        let newList = Object.assign(element,elementlist)
+        return console.log(newList);
+    }
+
+    
+    
+});
+
+
 query
 
 create table productos

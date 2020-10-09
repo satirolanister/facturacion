@@ -49,6 +49,7 @@
             <table class="table table-bordered">
               <thead>
                 <tr>
+                  <th>codigo</th>
                   <th>descripcion</th>
                   <th>Existencias</th>
                   <th>Precio Unitario</th>
@@ -58,6 +59,7 @@
               </thead>
               <tbody>
                 <tr v-for="product of products" :key="product._id">
+                  <td>{{product._id}}</td>
                   <td>{{ product.descripcion }}</td>
                   <td>{{ product.existencia }}</td>
                   <td>$ {{ product.precio_u}}</td>

@@ -106,38 +106,39 @@
                 <hr>
                 <div>
                     <div class="form-group">
-                    <label for="">Codigo Producto:</label>
-                    <input type="text" placeholder="Codigo de producto">
-                    <button class="btn btn-secondary" >Buscar</button>
+                    <label for="">Codigo:</label>
+                    <input type="text" placeholder="Codigo de producto" v-model="buscar">
+                    <button class="btn btn-secondary" @click="getProductId">Buscar</button>
                     <label for="">Descripción:</label>
-                    <input type="text" placeholder="Descripcion">
-                    <label for="">Cantidad</label>
-                    <input type="number" placeholder="Cantidad">
-                    <button class="btn btn-primary">+</button>
+                    <input type="text" placeholder="Descripcion" v-model="product.descripcion">
+                    <label for="">Existencias</label>
+                    <input type="number" placeholder="Cantidad" v-model="product.existencia">
+                    <button class="btn btn-primary" @click="addproduct">+</button>
                     </div>
                     <div class="form-group table-responsive">
                         <table class="table table-bordered">
                             <thead class="thead-dark">
                                 <tr>
+                                    <th>opciones</th>
                                     <th>Codigo</th>
                                     <th>Descripción</th>
                                     <th>Cantidad</th>
                                     <th>Precio</th>
-                                    <th>opciones</th>
+                                    
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td><input type="text" disabled></td>
-                                    <td><input type="text" disabled></td>
-                                    <td><input type="text"></td>
-                                    <td><input type="text" disabled></td>
-                                    <td>
+                                <tr v-for="producto of productos" :key="producto._id">
+                                  <td>
                                     <div>
                                         <button class="btn btn-danger">-</button>
                                         <button class="btn btn-success">+</button>
                                     </div>
                                     </td>
+                                    <td>{{producto._id}}</td>
+                                    <td>{{producto.descripcion}}</td>
+                                    <td><input type="text"></td>
+                                    <td><input type="text"></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -160,7 +161,8 @@ export default {
     return{
       lista:{},
       client:{},
-      producto:{},
+      productos:[],
+      product:{},
       cc: '',
       existe: '',
       nombre: '',
@@ -208,9 +210,61 @@ export default {
         .catch(err=>console.log(err));     
     },
     seachFactura(){
-      
       this.n_factura = parseInt(this.n_factura)
       console.log(this.n_factura);
+    },
+    getProductId(){
+      if(this.buscar === '' || this.buscar === 'undefined'){
+        alert('se debe colocar el codido de producto');
+      }else{
+        this.buscar= parseInt(this.buscar)
+        axios
+        .get('http://localhost:3000/api/product/' + this.buscar)
+        .then(data =>{
+          this.product=data.data;
+          this.buscar = '';
+        })
+        .catch(err => console.log(err));
+
+      }
+      
+
+    },
+    addproduct(){
+      
+      if(this.buscar === '' && this.product.descripcion === ''){
+        alert('se debe realizar busqueda primero')
+      }else{
+
+      let datos ={
+        _id:this.product._id,
+        descripcion:this.product.descripcion
+      };
+      this.productos.push(datos);
+
+      this.productos.forEach((value, index)=>{
+        let datosExtra={
+        valor:'',
+        Cantidad: ''
+        };
+        datos=this.productos[index];
+        datosExtra.valor = index*2
+        datosExtra.Cantidad = (8*index)+10;
+        addElement(datosExtra, dato);
+
+        function addElement(elementlist, element){
+            let newList = Object.assign(element,elementlist)
+            return console.log(newList);
+        };
+      })
+      
+      
+
+      console.log(this.productos);
+
+      this.cc=''
+      this.product = {};
+      }
     }
   }
 };
