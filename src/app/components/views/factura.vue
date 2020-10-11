@@ -132,13 +132,13 @@
                                   <td>
                                     <div>
                                         <button class="btn btn-danger">-</button>
-                                        <button class="btn btn-success">+</button>
+                                        <button class="btn btn-success" @click="addValorCantidad">+</button>
                                     </div>
                                     </td>
                                     <td>{{producto._id}}</td>
                                     <td>{{producto.descripcion}}</td>
-                                    <td><input type="text"></td>
-                                    <td><input type="text"></td>
+                                    <td><input type="text" v-model="productos.valor">{{producto.valor}}</td>
+                                    <td><input type="text" v-model="productos.cantidad">{{producto.cantidad}}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -213,6 +213,7 @@ export default {
       this.n_factura = parseInt(this.n_factura)
       console.log(this.n_factura);
     },
+
     getProductId(){
       if(this.buscar === '' || this.buscar === 'undefined'){
         alert('se debe colocar el codido de producto');
@@ -227,9 +228,8 @@ export default {
         .catch(err => console.log(err));
 
       }
-      
-
     },
+
     addproduct(){
       
       if(this.buscar === '' && this.product.descripcion === ''){
@@ -241,30 +241,26 @@ export default {
         descripcion:this.product.descripcion
       };
       this.productos.push(datos);
-
+      this.cc=''
+      }
+    },
+    addValorCantidad(){
       this.productos.forEach((value, index)=>{
         let datosExtra={
         valor:'',
         Cantidad: ''
         };
-        datos=this.productos[index];
-        datosExtra.valor = index*2
-        datosExtra.Cantidad = (8*index)+10;
-        addElement(datosExtra, dato);
-
-        function addElement(elementlist, element){
+        const datos=this.productos[index];
+        datosExtra.valor = parseInt(this.productos.valor); 
+        datosExtra.Cantidad = parseInt(this.productos.cantidad);
+        addElement(datosExtra, datos);
+      });
+      function addElement(elementlist, element){
             let newList = Object.assign(element,elementlist)
-            return console.log(newList);
-        };
-      })
-      
-      
-
+            return newList;
+      };
       console.log(this.productos);
-
-      this.cc=''
       this.product = {};
-      }
     }
   }
 };

@@ -19,6 +19,7 @@ module.exports = (sequelize, type) => {
                key: '_id'    
             }
         },
-        cantidad: type.INTEGER
+        cantidad: type.INTEGER,
+        valor: type.DOUBLE
     });
 }; 
