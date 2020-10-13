@@ -106,20 +106,21 @@
                 <hr>
                 <div>
                     <div class="form-group">
-                    <label for="">Codigo:</label>
-                    <input type="text" placeholder="Codigo de producto" v-model="buscar">
-                    <button class="btn btn-secondary" @click="getProductId">Buscar</button>
-                    <label for="">Descripción:</label>
-                    <input type="text" placeholder="Descripcion" v-model="product.descripcion">
-                    <label for="">Existencias</label>
-                    <input type="number" placeholder="Cantidad" v-model="product.existencia">
-                    <button class="btn btn-primary" @click="addproduct">+</button>
+                      <label for="">Codigo:</label>
+                      <input type="text" placeholder="Codigo de producto" v-model="buscar">
+                      <button class="btn btn-secondary" @click="getProductId">Buscar</button>
+                    </div>  
+                    <div class="form-group">
+                      <input type="text" placeholder="Descripcion" v-model="product.descripcion">
+                      <input type="number" placeholder="Existencias" v-model="product.existencia">
+                      <input type="number" placeholder="precio" v-model="val">
+                      <input type="number" placeholder="cantidad" v-model="can">
+                      <button class="btn btn-primary" @click="addproduct">+</button>
                     </div>
                     <div class="form-group table-responsive">
                         <table class="table table-bordered">
                             <thead class="thead-dark">
                                 <tr>
-                                    <th>opciones</th>
                                     <th>Codigo</th>
                                     <th>Descripción</th>
                                     <th>Cantidad</th>
@@ -129,16 +130,10 @@
                             </thead>
                             <tbody>
                                 <tr v-for="producto of productos" :key="producto._id">
-                                  <td>
-                                    <div>
-                                        <button class="btn btn-danger">-</button>
-                                        <button class="btn btn-success" @click="addValorCantidad">+</button>
-                                    </div>
-                                    </td>
                                     <td>{{producto._id}}</td>
                                     <td>{{producto.descripcion}}</td>
-                                    <td><input type="text" v-model="productos.valor">{{producto.valor}}</td>
-                                    <td><input type="text" v-model="productos.cantidad">{{producto.cantidad}}</td>
+                                    <td>{{producto.cantidad}}</td>
+                                    <td>{{producto.valor}}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -159,7 +154,7 @@ export default {
   name: "factura",
   data() {
     return{
-      lista:{},
+      factura:{},
       client:{},
       productos:[],
       product:{},
@@ -167,7 +162,9 @@ export default {
       existe: '',
       nombre: '',
       n_factura:'',
-      buscar: ''
+      buscar: '',
+      can:'',
+      val: ''
     }
   },
   mounted(){
@@ -236,31 +233,17 @@ export default {
         alert('se debe realizar busqueda primero')
       }else{
 
-      let datos ={
+      let datos = {
         _id:this.product._id,
-        descripcion:this.product.descripcion
+        descripcion:this.product.descripcion,
+        valor: this.val,
+        cantidad: this.can
       };
       this.productos.push(datos);
-      this.cc=''
+      this.cc=''  
+      this.can= '';
+      this.val='';
       }
-    },
-    addValorCantidad(){
-      this.productos.forEach((value, index)=>{
-        let datosExtra={
-        valor:'',
-        Cantidad: ''
-        };
-        const datos=this.productos[index];
-        datosExtra.valor = parseInt(this.productos.valor); 
-        datosExtra.Cantidad = parseInt(this.productos.cantidad);
-        addElement(datosExtra, datos);
-      });
-      function addElement(elementlist, element){
-            let newList = Object.assign(element,elementlist)
-            return newList;
-      };
-      console.log(this.productos);
-      this.product = {};
     }
   }
 };
