@@ -72,13 +72,11 @@
                             </thead>
                             <tbody>
                                 <tr v-for="producto of productos" :key="producto._id">
-
                                     <td>{{producto._id}}</td>
                                     <td>{{producto.descripcion}}</td>
                                     <td>{{producto.cantidad}}</td>
                                     <td>{{producto.valor}}</td>
                                     <td>{{producto.total}}</td>
-
                                 </tr>
                             </tbody>
                         </table>
