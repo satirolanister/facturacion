@@ -82,7 +82,7 @@
                         </form>
                       </template>
                 <template v-if="buscar === true">
-                      <form @submit.prevent="seachFactura">
+                      <form @submit.prevent="">
                         <div class="row">
                           <div class="col-md-6">
                             <div class="card">
@@ -206,9 +206,19 @@ export default {
         })
         .catch(err=>console.log(err));     
     },
-    seachFactura(){
-      this.n_factura = parseInt(this.n_factura)
-      console.log(this.n_factura);
+    addFactura(){
+      //factura
+      this.client._cel=parseInt(this.client._cel);
+      // detalle factura
+      this.productos._id=parseInt(this.product._id);
+      this.productos.cantidad=parseInt(this.productos.cantidad);
+      this.productos.valor=parseInt( this.productos.valor);
+      console.log(`cc: ${this.client._cel}, 
+                  codigo: ${ this.productos._id}, 
+                  cantidad: ${this.productos.cantidad},
+                  valor: ${this.productos.valor}
+      `);
+
     },
 
     getProductId(){
@@ -229,7 +239,7 @@ export default {
 
     addproduct(){
       
-      if(this.buscar === '' && this.product.descripcion === ''){
+      if(this.buscar === '' || this.product.descripcion === ''){
         alert('se debe realizar busqueda primero')
       }else{
 
