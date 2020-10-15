@@ -39,7 +39,12 @@ product.getProductId = async(req, res) =>{
                 _id: req.params.id
             }
         });
-        res.json(Product);
+        if(Product === null || Product === ''){
+            res.json({message: 'Codigo de producto no existe'});
+        }else{
+            res.json(Product);
+        }
+        
     } catch (err) {
         res.json(err);
     }
