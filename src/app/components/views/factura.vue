@@ -11,7 +11,7 @@
                 <div class="form-group">
                   <div>
                       <label for="">CC / NIT: </label>
-                      <input class="col-md-9" type="number" placeholder="CC / NIT " v-model="cc" >
+                      <input class="col-md-9" type="number" placeholder="CC / NIT " v-model="cc" autofocus >
                       <button class="btn btn-secondary" @click="getclientId" >Buscar</button>
                   </div>  
                 </div>
@@ -104,13 +104,11 @@ export default {
   },
   data() {
     return{
-      factura:{},
       productos:[],
       product:{},
       cc: '',
       existe: '',
       nombre: '',
-      n_factura:'',
       buscar: '',
       can:'',
       val: '',
@@ -188,18 +186,63 @@ export default {
 
     addFactura(){
       //factura
-      let cedula = parseInt(this.cc);
-      // detalle factura
-      let product = this.productos;
 
-      product.forEach((value, index)=>{
-        console.log(cedula)
-        console.log(value._id);
-        console.log(value.descripcion)
+      let id_client = {
+        id_client:parseInt(this.cc)
+      };
 
-      })
+      let numfactura;
+      let product=[];
       
+      axios
+           .post('http://localhost:3000/api/sale', id_client)
+           .then(data => {
+              numfactura = data.data.Numfactura;
+              
+            this.productos.forEach((value, index)=>{
+                  let obj ={
+                    id_factura: numfactura,
+                    id_producto: value._id,
+                    cantidad: value.cantidad,
+                    valor: value.total
+                  };
+                  console.log(data);
+                  product.push(obj);
+            });   
+            
+           // detalle factura
+           this.adddetalle(product);
+           product = []
+           id_client = {} 
+           numfactura= '';
+           
+           })
+           .catch(err =>{
+             console.log(err);
+           });
+                
+           
     },
+    adddetalle(product){
+      axios
+              .post('http://localhost:3000/api/detalle', product)
+              .then(data => {
+                console.log(data);
+                
+                this.cc= ''
+                this.productos=[];
+                this.product={};
+                this.existe= '';
+                this.nombre= '';
+                this.buscar= '';
+                this.can='',
+                this.val= '',
+                this.fullprice = '' 
+              })
+              .catch(err => {
+                 console.log(err);
+              });
+    }
   }
 };
 </script>

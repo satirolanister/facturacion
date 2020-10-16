@@ -2,8 +2,9 @@ module.exports = (sequelize, type) => {
     return sequelize.define('detalle_factura',{
         id_detalle:{
             type: type.INTEGER,
-            primaryKey: true,
             autoIncrement: true,
+            primaryKey: true
+            
         },
         id_factura:{
             type: type.INTEGER,
