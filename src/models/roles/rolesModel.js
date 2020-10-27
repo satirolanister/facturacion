@@ -4,6 +4,6 @@ module.exports = (sequelize, type) => {
             type: type.INTEGER,
             primaryKey: true
         },
-        descripcion: type.STRING,
+        descripcion: type.STRING
     });
 };

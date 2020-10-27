@@ -25,7 +25,6 @@ User.getClient = async (req, res)=>{
 
 User.addClient = async (req, res) =>{
     try {
-        req.body.Role =1;
         const client = await user.create(req.body);
         res.json(client);
     } catch (error) {

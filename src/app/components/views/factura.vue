@@ -12,7 +12,7 @@
                   <div>
                       <label for="">CC / NIT: </label>
                       <input class="col-md-9" type="number" placeholder="CC / NIT " v-model="cc" autofocus >
-                      <button class="btn btn-secondary" @click="getclientId" >Buscar</button>
+                      <button class="btn btn-secondary" @click.prevent="getclientId" >Buscar</button>
                   </div>  
                 </div>
                 <div class="form-group">
@@ -48,14 +48,14 @@
                     <div class="form-group">
                       <label for="">Codigo:</label>
                       <input type="text" placeholder="Codigo de producto" v-model="buscar">
-                      <button class="btn btn-secondary" @click="getProductId">Buscar</button>
+                      <button class="btn btn-secondary" @click.prevent="getProductId">Buscar</button>
                     </div>  
                     <div class="form-group">
                       <input type="text" disabled placeholder="Descripcion" v-model="product.descripcion">
                       <input type="number" disabled placeholder="Existencias" v-model="product.existencia">
                       <input type="number" placeholder="precio" v-model="val">
                       <input type="number" placeholder="cantidad" v-model="can">
-                      <button class="btn btn-primary" @click="addproduct">+</button>
+                      <button class="btn btn-primary" @click.prevent="addproduct">+</button>
                     </div>
                     <hr>
                     <div class="form-group table-responsive">

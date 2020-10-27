@@ -21,8 +21,12 @@
                     <option v-for="supplier in suppliers" :key="supplier.id_provee" :value="supplier.id_provee">
                       {{ supplier.descripcion }}
                     </option>
+                    <option @click.prevent="provee=true">Agregar proveedor</option>
                   </select>
                 </div>
+                <template v-if="provee === true">
+                      <addprovedor @cancelar="provee = $event"></addprovedor>
+                </template>
                 <div class="form-group">
                   <select class="form-control" name="proveedores" v-model="items.categoria">
                     <option v-for="category in categorys" :key="category.id_cat" :value="category.id_cat">
@@ -89,9 +93,13 @@
 
 <script>
   import axios from "axios";
+  import addprovedor from "./forms/addproveedor.vue"
 
   export default {
     name: "productos",
+    components:{
+      addprovedor
+    },
     data() {
       return {
         items: {},
@@ -99,7 +107,8 @@
         categorys: [],
         suppliers: [],
         edit:false,
-        idEdit: ''
+        idEdit: '',
+        provee: ''
       };
     },
     mounted() {

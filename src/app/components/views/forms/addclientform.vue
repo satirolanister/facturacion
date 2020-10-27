@@ -81,7 +81,9 @@ export default {
     },
     methods:{
     createClient(){
-    this.client._cel= this.cel;
+      this.client._cel= parseInt(this.cel);
+      this.client.telefono = parseInt(this.client.telefono);
+      this.client.Role = 1;
       axios
         .post('http://localhost:3000/api/user/',this.client)
         .then(data=>{
@@ -90,14 +92,12 @@ export default {
           this.client={}
         })
         .catch(err=>console.log(err)); 
-    this.form();        
+      this.form();   
     }, 
     form (){
         this.existe= '';
         this.$emit('cancelar', this.existe);
     }
-    },
-    mounted(){
     }
 };
 </script>
