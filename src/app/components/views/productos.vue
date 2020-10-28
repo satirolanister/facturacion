@@ -17,8 +17,8 @@
                   <input class="form-control" type="number" placeholder="precio unitario" v-model="items.precio_u" />
                 </div>
                 <div class="form-group">
-                  <select class="form-control" name="proveedores" v-model="items.id_prov">
-                    <option v-for="supplier in suppliers" :key="supplier.id_provee" :value="supplier.id_provee">
+                  <select @click="getSupplier" class="form-control" name="proveedores" v-model="items.id_prov">
+                    <option selected v-for="supplier in suppliers" :key="supplier.id_provee" :value="supplier.id_provee">
                       {{ supplier.descripcion }}
                     </option>
                     <option @click.prevent="provee=true">Agregar proveedor</option>
@@ -28,12 +28,16 @@
                       <addprovedor @cancelar="provee = $event"></addprovedor>
                 </template>
                 <div class="form-group">
-                  <select class="form-control" name="proveedores" v-model="items.categoria">
-                    <option v-for="category in categorys" :key="category.id_cat" :value="category.id_cat">
+                  <select @click="getCategory" class="form-control" name="proveedores" v-model="items.categoria">
+                    <option selected v-for="category in categorys" :key="category.id_cat" :value="category.id_cat">
                       {{ category.descrip }}
                     </option>
+                    <option @click.prevent="cate =true ">Agregar Categoria</option>
                   </select>
                 </div>
+                <template v-if="cate === true">
+                      <addcategoria @cancelarCat="cate = $event"></addcategoria>
+                </template>
                 <template v-if="edit === false">
                   <button class="btn btn-primary btn-block">
                     Insertar producto
@@ -66,7 +70,7 @@
                   <td>{{product._id}}</td>
                   <td>{{ product.descripcion }}</td>
                   <td>{{ product.existencia }}</td>
-                  <td>$ {{ product.precio_u}}</td>
+                  <td>$ {{ new Intl.NumberFormat('es-CO').format(product.precio_u)}}</td>
                   <td>{{ product.id_prov }}</td>
                   <td>{{ product.categoria }}</td>
                   <td>
@@ -93,12 +97,14 @@
 
 <script>
   import axios from "axios";
-  import addprovedor from "./forms/addproveedor.vue"
+  import addprovedor from "./forms/addproveedor.vue";
+  import addcategoria from "./forms/addcategoria.vue"
 
   export default {
     name: "productos",
     components:{
-      addprovedor
+      addprovedor,
+      addcategoria
     },
     data() {
       return {
@@ -108,7 +114,8 @@
         suppliers: [],
         edit:false,
         idEdit: '',
-        provee: ''
+        provee: '',
+        cate: ''
       };
     },
     mounted() {

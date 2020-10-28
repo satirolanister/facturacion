@@ -53,7 +53,7 @@
                     <div class="form-group">
                       <input type="text" disabled placeholder="Descripcion" v-model="product.descripcion">
                       <input type="number" disabled placeholder="Existencias" v-model="product.existencia">
-                      <input type="number" placeholder="precio" v-model="val">
+                      <input v-on="formatDecimal(val)" type="number" placeholder="precio" v-model="val">
                       <input type="number" placeholder="cantidad" v-model="can">
                       <button class="btn btn-primary" @click.prevent="addproduct">+</button>
                     </div>
@@ -75,8 +75,8 @@
                                     <td>{{producto._id}}</td>
                                     <td>{{producto.descripcion}}</td>
                                     <td>{{producto.cantidad}}</td>
-                                    <td>{{producto.valor}}</td>
-                                    <td>{{producto.total}}</td>
+                                    <td>$ {{new Intl.NumberFormat('es-CO').format(producto.valor)}}</td>
+                                    <td>$ {{new Intl.NumberFormat('es-CO').format(producto.total)}}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -117,6 +117,14 @@ export default {
   },
   
   methods:{
+
+    formatDecimal(input){
+      var dato = input;
+
+      console.log(dato+' '+dato.length)
+
+    
+    },
 
     getclientId(){
 

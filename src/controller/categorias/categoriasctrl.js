@@ -11,5 +11,18 @@ categorias.getCategorias=async(req, res)=> {
     }
 }
 
+categorias.addCategoria= async(req, res) => {
+    try {
+        const categoria = await cate.create(req.body);
+        res.json({
+            message: 'Categoria creada',
+            info: categoria
+        });
+
+    } catch (err) {
+        res.json(err)
+    }
+}
+
 
 module.exports = categorias;
