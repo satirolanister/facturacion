@@ -21,3 +21,7 @@ footer {
   width: 740px;
 }
 
+.modal-active{
+  margin-top: auto;
+  display:block;
+}
