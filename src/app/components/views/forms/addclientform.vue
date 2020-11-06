@@ -1,10 +1,11 @@
 <template>
-  <div class="modal fade in modal-active">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-body">
-          <slot>
-            <form @submit.prevent="createClient">
+  <transition name="modal">
+	<div class="modal-mask">
+		<div class="modal-wrapper">
+		<div class="modal-container">   
+			<div class="modal-body">
+			<slot name="body">
+			    <form @submit.prevent="createClient">
               <div class="row">
                 <div class="col-md-6">
                   <div class="card">
@@ -33,16 +34,19 @@
                   </div>
                 </div>
               </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal" @click="form">Close</button>
-                <button type="button" class="btn btn-primary">Agregar</button>
+              <div class="form-group">
+                        <div class="row">
+                            <button type="button" class="btn btn-secondary col-md-6" data-dismiss="modal" @click="form">Close</button>
+                            <button type="button" class="btn btn-primary col-md-6">Agregar</button>
+                        </div>
               </div>
             </form>
-          </slot>
-        </div>
-      </div>
-    </div>
-  </div>
+                </slot>
+                </div>
+              </div>
+              </div>
+              </div>
+		</transition>
 </template>
 
 <script>
