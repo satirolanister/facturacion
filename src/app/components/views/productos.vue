@@ -6,19 +6,21 @@
           <div class="card">
             <div class="card-body">
               <form @submit.prevent="sendproduct">
+                <div>
                 <div class="form-group">
-                  <textarea cols="41" rows="5" placeholder="descripcion producto"
+                  <textarea class="form-control" required rows="3" placeholder="descripcion producto"
                     v-model="items.descripcion"></textarea>
                 </div>
                 <div class="form-group">
-                  <input class="form-control" type="number" placeholder="cantidad" v-model="items.existencia" />
+                  <input class="form-control" required type="number" placeholder="cantidad" v-model="items.existencia" />
                 </div>
                 <div class="form-group">
-                  <input class="form-control" type="number" placeholder="precio unitario" v-model="items.precio_u" />
+                  <input class="form-control" required type="number" placeholder="precio unitario" v-model="items.precio_u" />
                 </div>
                 <div class="form-group">
-                  <select @click="getSupplier" class="form-control" name="proveedores" v-model="items.id_prov">
-                    <option selected v-for="supplier in suppliers" :key="supplier.id_provee" :value="supplier.id_provee">
+                  <label >Seleccione un proveedor</label>
+                  <select @click="getSupplier" required class="form-control" name="proveedores" v-model="items.id_prov">
+                    <option v-for="supplier in suppliers" :key="supplier.id_provee" :value="supplier.id_provee">
                       {{ supplier.descripcion }}
                     </option>
                     <option @click.prevent="provee=true">Agregar proveedor</option>
@@ -28,8 +30,9 @@
                       <addprovedor @cancelar="provee = $event"></addprovedor>
                 </template>
                 <div class="form-group">
-                  <select @click="getCategory" class="form-control" name="proveedores" v-model="items.categoria">
-                    <option selected v-for="category in categorys" :key="category.id_cat" :value="category.id_cat">
+                  <label >Seleccione un categoria</label>
+                  <select @click="getCategory" required class="form-control" name="proveedores" v-model="items.categoria">
+                    <option v-for="category in categorys" :key="category.id_cat" :value="category.id_cat">
                       {{ category.descrip }}
                     </option>
                     <option @click.prevent="cate =true ">Agregar Categoria</option>
@@ -47,7 +50,8 @@
                   <button class="btn btn-primary btn-block">
                     Editar producto
                   </button>
-                </template>  
+                </template>
+                </div>  
               </form>
             </div>
           </div>
@@ -98,7 +102,8 @@
 <script>
   import axios from "axios";
   import addprovedor from "./forms/addproveedor.vue";
-  import addcategoria from "./forms/addcategoria.vue"
+  import addcategoria from "./forms/addcategoria.vue";
+  import item from "../../item";
 
   export default {
     name: "productos",
@@ -108,7 +113,7 @@
     },
     data() {
       return {
-        items: {},
+        items: new item(),
         products: {},
         categorys: [],
         suppliers: [],
@@ -136,14 +141,13 @@
       sendproduct() {
         this.items.existencia = parseInt(this.items.existencia, 10);
         this.items.precio_u = parseInt(this.items.precio_u, 10);
-
         if(this.edit === false){
-          axios
+        axios
           .post("http://localhost:3000/api/product", this.items)
           .then((data) => {
             console.log('Datos enviados');
             this.getproducts();
-            this.items = {};
+            this.items = new item();
           })
           .catch((err) => console.log(err));
         }else{

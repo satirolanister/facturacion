@@ -1,28 +1,30 @@
 <template>
-    <div class="mx-3 mb-3"> 
-        <div class="row">
-            <div class="card">
-                <div class="card-body">
-                    <form @submit.prevent="addprovedor">
-                        <div class="form-group">
-                            <div>
-                                <input type="number" required placeholder="NIT o CC" v-model="proveedor.id_provee">
-                            </div>
-                            <div>
-                                <input type="text" required placeholder="Nombre" v-model="proveedor.descripcion">
-                            </div>
-                            <div class="mt-2">
-                                <button class="btn btn-success">Agregar Proveedor</button>
-                                <button class="btn btn-danger" @click="form">Cancelar</button>
-                            </div>
-                        </div>
-
-                    </form>
+    <transition name="modal">
+        <div class="modal-mask">
+            <div class="modal-wrapper">
+                <div class="modal-container">
+                    <div class="modal-body">
+                        <slot name="body">
+                            <form>
+                                <div class="form-group">
+                                <div>
+                                    <input type="number" required placeholder="NIT o CC" v-model="proveedor.id_provee">
+                                </div>
+                                <div>
+                                    <input type="text" required placeholder="Nombre" v-model="proveedor.descripcion">
+                                </div>
+                                <div class="mt-2">
+                                    <button class="btn btn-success btn-block" @click.prevent="addprovedor">Agregar Proveedor</button>
+                                    <button class="btn btn-danger btn-block" @click="form">Cancelar</button>
+                                </div>
+                                </div>
+                            </form>
+                        </slot>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    
+</transition>    
 </template>
 
 <script>

@@ -1,7 +1,6 @@
 <template>
   <div>
     <div class="container">
-
       <form>
         <div class="row pt-5">
           <div class="col-md-5">
@@ -11,11 +10,12 @@
                   <div class="col-md-12">
                     <div class="card">
                       <div class="card-body">
+                        <div>
                         <div class="form-group">
                           <div>
                             <label for="">CC / NIT: </label>
                             <br>
-                            <input class="col-md-7" type="number" placeholder="CC / NIT " v-model="cc" autofocus>
+                            <input class="col-md-10" required type="number" placeholder="CC / NIT " v-model="cc" autofocus>
                             <button class="btn btn-secondary" @click.prevent="getclientId" data-toggle="modal"
                               data-target="#exampleModal"><i class="fa fa-search" aria-hidden="true"></i>
                             </button>
@@ -25,20 +25,21 @@
                         <div class="form-group">
                           <div>
                             <label for="">Nombre Cliente:</label>
-                            <input class="col-md-9" disabled type="text" placeholder="Nombre cliente"
+                            <input class="col-md-10" disabled type="text" placeholder="Nombre cliente"
                               v-model="nombre" />
                           </div>
                         </div>
                         <div class="form-group">
                           <label for="">Vendedor:</label>
                           <br>
-                          <input class="col-md-9" type="text" placeholder="Vendedor" />
+                          <input required class="col-md-10" type="text" placeholder="Vendedor" />
                         </div>
                         <div class="form-group">
                           <label for="">Metodo de pago:</label>
-                          <select class="col-md-9">
+                          <select required class="col-md-10">
                             <option value="1">Efectivo</option>
                           </select>
+                        </div>
                         </div>
                         <button class="btn btn-success btn-block" @click.prevent="addFactura()">Agregar venta</button>
                       </div>
@@ -50,32 +51,40 @@
           </div>
           <div class="col-md-7">
             <div class="form-group">
-              <div class="row text">
+              <div class="row">
                 <div class="col-7">
-                  <input type="text" placeholder="Codigo de producto" v-model="buscar">
-                  <button class="btn btn-secondary" @click.prevent="getProductId"><i class="fa fa-search"
-                      aria-hidden="true"></i></button>
-                  <div class="form-group">
-                    <label>Valor: </label>
-                    <input type='currency' class="col-md-8" placeholder='Valor' v-model="val" />
-                    <br>
-                    <label>Cantidad: </label>
-                    <input type="number" placeholder="cantidad" v-model="can">
-                    <button class="btn btn-primary" @click.prevent="addproduct">+</button>
+                  <div class="row mx-2">
+                    <div class="card">
+                      <div class="card-body">
+                        <div>
+                          <input type="text" class="col-sm-10" placeholder="Codigo de producto" v-model="buscar">
+                          <button class="btn btn-secondary" @click.prevent="getProductId"><i class="fa fa-search"
+                              aria-hidden="true"></i></button>
+                          <input type="currency" required class="col-md-10 mt-1" placeholder="Valor" v-model="val" />
+                          <input type="number" required class="col-md-10 mt-1" placeholder="cantidad" v-model="can">
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <div class="col-5">
                   <div class="card">
                     <div class="card-body">
-                      <label>Descripción: {{product.descripcion}}</label>
-                      <br>
+                      <div class="row justify-content-start">
+                       <div class="col-6">
+                         <label>Descripción: {{product.descripcion}}</label>
+                       </div> 
+                      <div class="col-6">
                       <label>existencia: {{product.existencia}}</label>
+                      </div>
+                      </div>
                     </div>
                   </div>
+                  <button class="btn btn-primary mt-2 col-md-12" @click.prevent="addproduct">+</button>
                 </div>
               </div>
             </div>
-            <div class="form-group table-responsive">
+            <div class="table-responsive">
               <table class="table table-bordered">
                 <thead class="thead-dark">
                   <tr>
